@@ -75,6 +75,7 @@ func (r *Format) GetIndex() int {
 }
 
 func (r *Format) GetFormatString(data structure.CellData) string {
+	fmt.Printf("r.GetIndex() == %d\n", r.GetIndex())
 	if r.GetIndex() >= 164 {
 
 		if data.GetType() == "*record.LabelSSt" {
