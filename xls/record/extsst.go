@@ -1,6 +1,6 @@
 package record
 
-import "github.com/shakinm/xlsReader/xls/structure"
+import "github.com/n-sys/xlsReader/xls/structure"
 
 //EXTSST: Extended Shared String Table
 

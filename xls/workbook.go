@@ -3,8 +3,8 @@ package xls
 import (
 	"bytes"
 	"errors"
-	"github.com/shakinm/xlsReader/helpers"
-	"github.com/shakinm/xlsReader/xls/record"
+	"github.com/n-sys/xlsReader/helpers"
+	"github.com/n-sys/xlsReader/xls/record"
 )
 
 // Workbook struct

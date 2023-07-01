@@ -3,7 +3,7 @@ package cfb
 import (
 	"bytes"
 	"errors"
-	"github.com/shakinm/xlsReader/helpers"
+	"github.com/n-sys/xlsReader/helpers"
 )
 
 //HeaderSignature Identification signature for the compound file structure, and MUST be

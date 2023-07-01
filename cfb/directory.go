@@ -3,7 +3,7 @@ package cfb
 import (
 	"encoding/binary"
 	"unicode/utf16"
-	"github.com/shakinm/xlsReader/helpers"
+	"github.com/n-sys/xlsReader/helpers"
 )
 
 

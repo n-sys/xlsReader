@@ -2,7 +2,7 @@ package record
 
 import (
 	"encoding/binary"
-	"github.com/shakinm/xlsReader/helpers"
+	"github.com/n-sys/xlsReader/helpers"
 )
 
 //MULBLANK: Multiple Blank Cells
