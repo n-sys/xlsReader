@@ -75,7 +75,6 @@ func (r *Format) GetIndex() int {
 }
 
 func (r *Format) GetFormatString(data structure.CellData) string {
-	fmt.Printf("r.GetIndex() == %d\n", r.GetIndex())
 	if r.GetIndex() >= 164 {
 
 		if data.GetType() == "*record.LabelSSt" {
@@ -104,7 +103,7 @@ func (r *Format) GetFormatString(data structure.CellData) string {
 				return fmt.Sprintf("%.2f", data.GetFloat64()*100) + "%"
 			} else if strings.Contains(r.String(), "#") || strings.Contains(r.String(), ".00") {
 				return fmt.Sprintf("%.2f", data.GetFloat64())
-			} else if strings.Contains(r.String(), "0") {
+			} else if strings.Contains(r.String(), "0") && !strings.ContainsAny(r.String(), "dDmMyY") {
 				return fmt.Sprintf("%.f", data.GetFloat64())
 			} else {
 				t := helpers.TimeFromExcelTime(data.GetFloat64(), false)
