@@ -2,8 +2,8 @@ package record
 
 import (
 	"bytes"
+        "time"
 	"fmt"
-	"github.com/metakeule/fmtdate"
 	"github.com/n-sys/xlsReader/helpers"
 	"github.com/n-sys/xlsReader/xls/structure"
 	"strconv"
@@ -107,9 +107,7 @@ func (r *Format) GetFormatString(data structure.CellData) string {
 				return fmt.Sprintf("%.f", data.GetFloat64())
 			} else {
 				t := helpers.TimeFromExcelTime(data.GetFloat64(), false)
-				dateFormat := strings.ReplaceAll(r.String(), "HH:MM:SS", "hh:mm:ss")
-				dateFormat = strings.ReplaceAll(dateFormat, "\\", "")
-				return fmtdate.Format(dateFormat, t)
+                                return t.Format(time.DateOnly)
 			}
 
 		}

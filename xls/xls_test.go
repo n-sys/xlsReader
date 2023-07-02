@@ -68,12 +68,12 @@ func TestGetWorkBook(t *testing.T) {
 					t.Error("Expected 'TRUE', got ", c.GetString())
 				}
 			case 10: //date
-				if format.GetFormatString(c) != "9/3/19" {
-					t.Error("Expected '9/3/19', got ", format.GetFormatString(c))
+				if format.GetFormatString(c) != "2019-03-09" {
+					t.Error("Expected '2019-03-09', got ", format.GetFormatString(c))
 				}
 			case 11: //dateTime
-				if format.GetFormatString(c) != "09/03/2019 13:12:59" {
-					t.Error("Expected '09/03/2019 13:12:59', got ", format.GetFormatString(c))
+				if format.GetFormatString(c) != "2019-03-09" {
+					t.Error("Expected '2019-09-03', got ", format.GetFormatString(c))
 				}
 			case 12:
 				if format.GetFormatString(c) != "55.00%" {
