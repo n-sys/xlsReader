@@ -2,12 +2,13 @@ package record
 
 import (
 	"bytes"
-        "time"
 	"fmt"
-	"github.com/n-sys/xlsReader/helpers"
-	"github.com/n-sys/xlsReader/xls/structure"
 	"strconv"
 	"strings"
+	"time"
+
+	"github.com/n-sys/xlsReader/helpers"
+	"github.com/n-sys/xlsReader/xls/structure"
 )
 
 //FORMAT: Number Format
@@ -48,7 +49,7 @@ func (r *Format) Read(stream []byte, vers []byte) {
 
 	r.vers = vers
 
-	if bytes.Compare(vers, FlagBIFF8) == 0 {
+	if bytes.Equal(vers, FlagBIFF8) {
 		copy(r.ifmt[:], stream[0:2])
 		_ = r.stFormat.Read(stream[2:])
 	} else {
@@ -61,13 +62,11 @@ func (r *Format) Read(stream []byte, vers []byte) {
 }
 
 func (r *Format) String() string {
-
-	if bytes.Compare(r.vers, FlagBIFF8) == 0 {
+	if bytes.Equal(r.vers, FlagBIFF8) {
 		return r.stFormat.String()
 	}
 	strLen := helpers.BytesToUint16(r.cch[:])
 	return strings.TrimSpace(string(decodeWindows1251(bytes.Trim(r.rgb[:int(strLen)], "\x00"))))
-
 }
 
 func (r *Format) GetIndex() int {
@@ -76,26 +75,21 @@ func (r *Format) GetIndex() int {
 
 func (r *Format) GetFormatString(data structure.CellData) string {
 	if r.GetIndex() >= 164 {
-
 		if data.GetType() == "*record.LabelSSt" {
 			return data.GetString()
 		}
 		if data.GetType() == "*record.Label" {
 			return data.GetString()
 		}
-
 		if data.GetType() == "*record.FakeBlank" {
 			return data.GetString()
 		}
-
 		if data.GetType() == "*record.Blank" {
 			return data.GetString()
 		}
-
 		if data.GetType() == "*record.BoolErr" {
 			return data.GetString()
 		}
-
 		if data.GetType() == "*record.Number" || data.GetType() == "*record.Rk" {
 			if r.String() == "General" || r.String() == "@" {
 				return strconv.FormatFloat(data.GetFloat64(), 'f', -1, 64)
@@ -103,17 +97,15 @@ func (r *Format) GetFormatString(data structure.CellData) string {
 				return fmt.Sprintf("%.2f", data.GetFloat64()*100) + "%"
 			} else if strings.Contains(r.String(), "#") || strings.Contains(r.String(), ".00") {
 				return fmt.Sprintf("%.2f", data.GetFloat64())
-			} else if strings.Contains(r.String(), "0") && !strings.ContainsAny(r.String(), "dDmMyY") {
+			} else if strings.Contains(r.String(), "0") &&
+				!strings.ContainsAny(r.String(), "dDmMyY") {
 				return fmt.Sprintf("%.f", data.GetFloat64())
 			} else {
 				t := helpers.TimeFromExcelTime(data.GetFloat64(), false)
-                                return t.Format(time.DateOnly)
+				return t.Format(time.DateOnly)
 			}
-
 		}
-
 		return data.GetString()
-
 	} else {
 		if data.GetType() == "*record.Number" {
 			return strconv.FormatFloat(data.GetFloat64(), 'f', -1, 64)

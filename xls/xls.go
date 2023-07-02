@@ -1,3 +1,4 @@
+// Package XLS (barely) reads old .xls format files.
 package xls
 
 import (
